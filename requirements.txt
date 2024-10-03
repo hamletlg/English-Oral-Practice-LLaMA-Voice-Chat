@@ -1,0 +1,6 @@
+Flask==2.0.1
+flask-cors==3.0.9
+whispercpp==0.1.0
+piper==0.1.0
+llama-cpp-python==0.1.14
+pydub==0.25.1

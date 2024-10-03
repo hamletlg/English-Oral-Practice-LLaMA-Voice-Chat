@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 80%;    
+    height: 80vh; /* Set to 80% of the viewport height */
+    margin: auto;
+    padding: 20px;
+    display: flex; /* Use Flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+}
+
+#chat-interface {
+    border: 1px solid #ccc;
+    padding: 10px;
+    height: 100%; /* Occupy all available space in the container */
+    overflow-y: scroll;
+    display: flex; /* Use Flexbox for layout inside chat-interface */
+    flex-direction: column; /* Stack children vertically */
+}
+
+#messages {
+    flex: 1; /* Take up remaining space in chat-interface */
+    padding: 5px; /* Optional, adjust as needed */
+}
+
+.user-message, .llm-response {
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.user-message {
+    background-color: #e7f3fe;
+    text-align: right;
+}
+
+.llm-response {
+    background-color: #f0f0f0;
+    text-align: left;
+}
+
+/* New styles for input and button at the bottom */
+#input-container {
+    display: flex; /* Use Flexbox for layout inside container */
+    justify-content: space-between; /* Space out children horizontally */
+    align-items: center; /* Align items vertically in the center */
+}
+
+#user-input {
+    flex: 1; /* Take up remaining space in input container */
+    padding: 8px;
+    margin-right: 10px; /* Optional, adjust as needed */
+}
+
+#send-message {
+    padding: 8px 15px;
+}
