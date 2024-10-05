@@ -55,5 +55,32 @@ body {
 }
 
 #send-message {
+    flex: 1; 
     padding: 8px 15px;
+    background-color: #d9edf7; /* Light blue for initial state */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+#send-message.recording {
+    background-color: #b82a78; /* Soft red while recording */
+}
+
+.flash {
+    width: 80%;
+    padding: 20px;
+    margin: auto;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: none; /* Hidden by default */
+}
+
+.flash.error {
+    background-color: #ffa7ae;
+    color: #a02a36;
+}
+
+.flash.success {
+    background-color: #96faad;
+    color: #1c7530;
 }

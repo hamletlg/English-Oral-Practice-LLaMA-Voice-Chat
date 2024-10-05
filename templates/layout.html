@@ -7,9 +7,16 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+    <section>
+        <header>
+            <div id="notification" class="flash"></div>
+        </header>
+    <main>
     <div class="container">
         {% block content %}{% endblock %}
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </main>
+</section>
 </body>
 </html>
