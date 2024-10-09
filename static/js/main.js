@@ -9,19 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Toggle recording on button click
     recordButton.onclick = async function () {
         if (!isRecording) {
-            // Start recording
             startRecording();
         } else {
-            // Stop recording
             stopRecording();
         }
     };
 
-    // Start recording function
     function startRecording() {
-        recordButton.textContent = "Stop Recording";  // Update button text
-        recordButton.classList.add('recording'); // Add class for recording state
-        isRecording = true;  // Update state
+        recordButton.textContent = "Stop Recording";  
+        recordButton.classList.add('recording'); 
+        isRecording = true; 
         showNotification('Recording... Speak now', 'success');
 
         // Start recording audio
@@ -38,17 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Stop recording function
     function stopRecording() {
-        recordButton.textContent = "Start Recording";  // Reset button text
-        recordButton.classList.remove('recording'); // Remove class for recording state
-        isRecording = false;  // Update state
-        mediaRecorder.stop();  // Stop recording
+        recordButton.textContent = "Start Recording";  
+        recordButton.classList.remove('recording'); 
+        isRecording = false;  
+        mediaRecorder.stop();  
 
         mediaRecorder.onstop = () => {
             const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-            audioChunks = [];  // Clear chunks for the next recording
-            uploadAudio(audioBlob);  // Send audio to server for processing
+            audioChunks = [];  
+            uploadAudio(audioBlob); 
         };
     }
 
@@ -128,7 +124,23 @@ document.addEventListener('DOMContentLoaded', function () {
     function playAudio(audioPath) {
         const audio = new Audio(audioPath);
         audio.play();
-    }
+      // Once the audio has finished playing, send a request to delete it from the server
+      audio.onended = async function() {
+        const filename = audioPath.split('/').pop();  // Extract the filename from the path
+        try {
+            const response = await fetch(`/delete-audio/${filename}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                console.error('Failed to delete the audio file');
+            } else {
+                console.log('Audio file deleted successfully');
+            }
+        } catch (error) {
+            console.error('Error deleting audio file:', error);
+        }
+    };
+}
 
     // Helper function to reset recording state in case of errors
     function resetRecordingState() {
@@ -157,25 +169,38 @@ document.addEventListener('DOMContentLoaded', function () {
         messagesDiv.appendChild(messageElement);
         messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom of the chat interface
     }
-
-    function displayError(errorText) {
-        const errorElement = document.createElement('div');
-        errorElement.innerHTML = marked.parse(`**Error:** ${errorText}`);
-        errorElement.style.color = 'red';
-        errorElement.style.textAlign = 'center'; // Center the error message
-        document.getElementById('messages').appendChild(errorElement);
-    }
+    
 
     // Function to show notifications
-function showNotification(message, type = 'success') {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.className = `flash ${type}`; // Apply appropriate class based on type
-    notification.style.display = 'block'; // Show the notification
-
-    // Automatically hide the notification after a few seconds
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 5000);
-}
+    function showNotification(message, type = 'success') {
+        const notification = document.getElementById('notification');
+        const overlay = document.getElementById('flash-overlay');
+    
+        // Set the notification message and type
+        notification.textContent = message;
+        notification.className = `flash ${type}`;
+    
+        // Show the notification and overlay by setting display and triggering opacity transition
+        overlay.style.display = 'block';
+        notification.style.display = 'block';
+        
+        // Trigger the fade-in by setting opacity to 1
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+            notification.style.opacity = '1';
+        }, 10); // Slight delay to ensure CSS transition triggers
+    
+        // Automatically hide the notification and overlay after 5 seconds
+        setTimeout(() => {
+            // Fade out by setting opacity to 0
+            overlay.style.opacity = '0';
+            notification.style.opacity = '0';
+            
+            // After the fade-out transition is done (0.5s), hide the elements completely
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                notification.style.display = 'none';
+            }, 500); // Match this with the CSS transition duration (0.5s)
+        }, 2000); // Show for 5 seconds
+    }
 });

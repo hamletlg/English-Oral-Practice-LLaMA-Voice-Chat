@@ -14,7 +14,7 @@ class Config:
     MODEL_NAME = "publisher/repo/DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf"
 
     # Role System
-    ROLE_SYSTEM = "You are helpful English instructor."
+    ROLE_SYSTEM = "You are a helpful assistant."
 
     # MODEL_TEMP
     MODEL_TEMP = 0.7
