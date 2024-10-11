@@ -7,7 +7,7 @@ class Config:
     WTF_CSRF_SECRET_KEY = os.environ.get('WTF_CSRF_SECRET_KEY') or 'another-secret-key'
 
     # Model paths
-    WHISPER_MODEL_PATH = '/home/hamlet/INSTALADORES/whisper.cpp/models/ggml-model-whisper-medium.en-q5_0.bin'
+    WHISPER_MODEL = '/home/hamlet/INSTALADORES/whisper.cpp/models/ggml-model-whisper-medium.en-q5_0.bin'
     LLAMA_MODEL_PATH = '/home/hamlet/INSTALADORES/LLM-MODELS/hugging-quants/Llama-3.2-3B-Instruct-Q8_0-GGUF'
 
     # Model to data json
@@ -36,4 +36,6 @@ class Config:
     RESPONSES_FOLDER = os.getcwd() + '/responses'
 
     ALLOWED_EXTENSIONS = {'wav', 'mp3', 'ogg'}
+
+    CONVERSATION_FILE = 'conversation.json'
 

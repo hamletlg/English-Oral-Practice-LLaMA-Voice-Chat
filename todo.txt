@@ -1,0 +1,2 @@
+- mover conversaciones a carpeta conversacion
+- refactorizar rutas absolutas en config por rutas relativas
