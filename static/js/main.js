@@ -152,13 +152,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayTranscription(text) {
         console.log(text);
         const messagesDiv = document.getElementById('messages');
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('user-message')
-        messageElement.innerHTML = marked.parse(`**User:** ${text}`);
-        messageElement.style.textAlign = 'right'; // Align to the right for user's messages
-        messagesDiv.appendChild(messageElement);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom of the chat interface
+        const messageElement = document.createElement('div');        
+        messageElement.classList.add('user-message', 'bg-info', 'text-white', 'my-2', 'p-2', 'rounded');    
+        messageElement.innerHTML = marked.parse(`**User:** ${text}`);        
+        messageElement.classList.add('text-end');        
+        messagesDiv.appendChild(messageElement);        
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
+    
 
     function displayResponse(responseText) {
         console.log(responseText);
@@ -172,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
     // Function to show notifications
-    function showNotification(message, type = 'success') {
+    /* function showNotification(message, type = 'success') {
         const notification = document.getElementById('notification');
         const overlay = document.getElementById('flash-overlay');
     
@@ -202,5 +203,41 @@ document.addEventListener('DOMContentLoaded', function () {
                 notification.style.display = 'none';
             }, 500); // Match this with the CSS transition duration (0.5s)
         }, 2000); // Show for 5 seconds
+    }*/
+
+    document.getElementById('new-conversation').addEventListener('click', async () => {
+        resetRecordingState();
+        displayTranscription('');
+        displayResponse('');
+        document.getElementById('messages').innerHTML = '';
+    
+        try {
+            const response = await fetch('/new-conversation', {
+                method: 'POST'
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to start a new conversation');
+            }
+        } catch (error) {
+            console.error('Error starting a new conversation:', error);
+            showNotification('An error occurred while starting a new conversation. Please try again.', 'error');
+        }
+    });
+
+    function showNotification(message, type) {
+        var notification = document.getElementById('notification');
+        var flashClass = (type === 'error') ? 'alert-danger' : 'alert-success';
+        notification.innerHTML = `
+            <div class="alert ${flashClass} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+        notification.classList.add('show');
+        setTimeout(function() {
+            notification.classList.remove('show');
+            notification.innerHTML = ''; // Clear the message after a few seconds
+        }, 5000);
     }
+    
 });

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container">
-    <div id="chat-interface">
-        <div id="messages"></div>
+<div class="container mt-4">
+    <div id="chat-interface" class="border p-4 h-100 overflow-y-auto d-flex flex-column">
+        <div id="messages" class="w-100" style="height: 70vh; overflow-y: auto;"></div>
     </div>
-    <div id="input-container">        
-        <button id="send-message">Record</button>
+    <div id="input-container" class="mt-3 d-flex justify-content-between">        
+        <button id="send-message" class="btn btn-primary">Record</button>
+        <button id="new-conversation" class="btn btn-secondary">New Conversation</button>
     </div>
 </div>
 {% endblock %}
-

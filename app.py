@@ -57,16 +57,16 @@ def delete_audio(filename):
             return jsonify({'error': 'Failed to delete the audio file'}), 500
     else:
         return jsonify({'error': 'Audio file not found'}), 404
- 
+    
 
-@app.before_request
-def clear_conversation_on_new_session():
-    logger.info(f"Before request: {session['conversation_started']}")
-    # Limpiar conversación al inicio de una nueva sesión
-    if 'conversation_started' not in session:
-        if os.path.exists(Config.CONVERSATION_FILE):
-            os.remove(Config.CONVERSATION_FILE)
-        session['conversation_started'] = True
+@app.route('/new-conversation', methods=['POST'])
+def new_conversation():
+    # Clear any existing conversation data if necessary
+    if os.path.exists(Config.CONVERSATION_FILE):
+        os.remove(Config.CONVERSATION_FILE)
+    
+    return jsonify({'status': 'success'}), 200
+ 
 
 if __name__ == '__main__':
     app.run(debug=True)
