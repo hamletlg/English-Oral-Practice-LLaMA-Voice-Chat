@@ -6,7 +6,7 @@
 
 Alpha: 0.2
 
-A local Flask application designed to help users practice and improve their English oral language skills through conversational roleplays with an AI assistant. The app utilizes cutting-edge models like Whisper, Piper, and LLaMA for speech recognition, text-to-speech, and interactive conversations.
+A local Flask application designed to help users practice and improve their English oral language skills through conversational roleplays with an AI assistant. The app utilizes models like Whisper, Piper, and LLaMA for speech recognition, text-to-speech, and interactive conversations.
 
 ## Table of Contents
 
