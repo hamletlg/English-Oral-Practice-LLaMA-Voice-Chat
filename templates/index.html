@@ -2,12 +2,66 @@
 
 {% block content %}
 <div class="container mt-4">
-    <div id="chat-interface" class="border p-4 h-100 overflow-y-auto d-flex flex-column">
-        <div id="messages" class="w-100" style="height: 70vh; overflow-y: auto;"></div>
-    </div>
-    <div id="input-container" class="mt-3 d-flex justify-content-between">        
-        <button id="send-message" class="btn btn-primary">Record</button>
-        <button id="new-conversation" class="btn btn-secondary">New Conversation</button>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Restaurant Card -->
+        <div class="col">
+            <a href="/role-play?role=restaurant" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-restaurant.jpg') }}" class="card-img-top" alt="Restaurant">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Restaurant</h5>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Shopping Card -->
+        <div class="col">
+            <a href="/role-play?role=shopping" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-shopping.jpg') }}" class="card-img-top" alt="Shopping">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Shopping</h5>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Clinic Card -->
+        <div class="col">
+            <a href="/role-play?role=clinic" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-clinic.jpg') }}" class="card-img-top" alt="Clinic">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Clinic</h5>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Car Rental Card -->
+        <div class="col">
+            <a href="/role-play?role=car-rental" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-rental.jpg') }}" class="card-img-top" alt="Car Rental">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Car Rental</h5>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Custom Card -->
+        <div class="col">
+            <a href="/role-play?role=custom" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-custom.jpg') }}" class="card-img-top" alt="Custom">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Custom</h5>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Free Chat Card -->
+        <div class="col">
+            <a href="/role-play?role=free" class="card h-100 text-decoration-none hover-card">
+                <img src="{{ url_for('static', filename='images/card-free.jpg') }}" class="card-img-top" alt="Free Chat">
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <h5 class="card-title text-center text-dark">Free Chat</h5>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}

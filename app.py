@@ -1,10 +1,13 @@
+import json
 import os
 from flask import Flask, render_template, request, jsonify, send_file, session
 from flask_cors import CORS
 import logging
+import markdown2
 from config import Config
 #from scenarios.predefined_scenarios import get_scenarios
 from llm.llm_handler import get_llm_response, process_conversation
+
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -30,10 +33,12 @@ def upload_audio():
 def get_llm_response_route():
     data = request.get_json()
     prompt = data.get('transcription', '')
-    llm_response, tts_audio_file = get_llm_response(prompt)
+    system_role = session.get('system_role', Config.ROLE_SYSTEM)
+    llm_response, grammar, tts_audio_file = get_llm_response(prompt, system_role)
     logger.info(f"tts_audio_path: {tts_audio_file}")
     return jsonify({
         'response': llm_response,
+        'grammar': grammar,
         'audio': '/responses/' + tts_audio_file
     })
 
@@ -66,7 +71,32 @@ def new_conversation():
         os.remove(Config.CONVERSATION_FILE)
     
     return jsonify({'status': 'success'}), 200
- 
+
+@app.route('/role-play')
+def roleplay():
+    roles_images = {
+        "restaurant": "card-restaurant.jpg",
+        "shopping": "card-shopping.jpg",
+        "clinic": "card-clinic.jpg",
+        "car-rental": "card-rental.jpg",
+        "custom": "card-custom.jpg",
+        "free": "card-free.jpg"
+    }
+    role = request.args.get('role', 'default') 
+    image_name = roles_images.get(role)
+    with open('ConfigRoles.json', 'r') as file:
+        data = json.load(file)
+    system_role = data[role]
+    presentation_html = markdown2.markdown(system_role.get('presentation', '')).replace("\n", "<br>")
+    logger.info(f"presentation: {presentation_html}")
+    session['system_role'] = system_role['system-role'] 
+    return render_template('free_chat.html', presentation=presentation_html, image=image_name)
+
+
+@app.route('/free-chat')
+def free_chat():
+    return render_template('free_chat.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

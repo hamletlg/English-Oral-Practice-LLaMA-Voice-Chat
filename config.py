@@ -14,7 +14,7 @@ class Config:
     MODEL_NAME = "publisher/repo/DeepSeek-Coder-V2-Lite-Instruct-Q4_K_M.gguf"
 
     # Role System
-    ROLE_SYSTEM = "You are a helpful assistant."
+    ROLE_SYSTEM = "You are a helpful assistant"
 
     # MODEL_TEMP
     MODEL_TEMP = 0.7
@@ -29,6 +29,7 @@ class Config:
     # Executables
     WHISPER_EXECUTABLE = '/home/hamlet/INSTALADORES/whisper.cpp/main'
 
+    # LLM local server end point. 
     API_URL = "http://localhost:1234/v1/chat/completions"
     HEADERS = {"Content-Type": "application/json"}
 

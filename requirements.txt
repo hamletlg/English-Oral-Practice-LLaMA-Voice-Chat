@@ -1,6 +1,6 @@
-Flask==2.0.1
-flask-cors==3.0.9
-whispercpp==0.1.0
-piper==0.1.0
-llama-cpp-python==0.1.14
-pydub==0.25.1
+Flask==3.0.3
+Flask_Cors==5.0.0
+markdown2==2.5.1
+Requests==2.32.3
+Werkzeug==3.0.4
+piper-tts==1.2.0

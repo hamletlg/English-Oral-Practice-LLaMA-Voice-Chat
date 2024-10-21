@@ -15,3 +15,5 @@ def generate_speech(text):
 
 def clean_characters_to_piper(text):
     return text.replace('*', '').replace('(', '').replace(')', '').replace('-', '')
+
+

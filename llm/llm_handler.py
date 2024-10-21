@@ -3,6 +3,7 @@ import subprocess
 from flask import jsonify
 import requests
 import logging
+import re
 from config import Config
 from werkzeug.utils import secure_filename
 from models.conversation import load_conversation, save_conversation
@@ -62,18 +63,35 @@ def transcribe_audio(audio_path):
         logger.info(f"Whisper output: {user_input}")
         return user_input
 
-def get_llm_response(user_input):
+def get_llm_response(user_input, system_role):
     conversation = load_conversation()
-    messages = [{'role': 'system', 'content': Config.ROLE_SYSTEM}] + conversation
+    messages = [{'role': 'system', 'content': system_role}] + conversation
     data = {"model": Config.MODEL_NAME, "messages": messages, "temperature": Config.MODEL_TEMP}
     
     response = requests.post(Config.API_URL, json=data, headers=Config.HEADERS)
     llm_response = response.json().get('choices', [{}])[0].get('message', {}).get('content', 'No response')
+
+    llm_role_responses = re.findall(r'<bot>(.*?)</bot>', llm_response)
+    llm_grammar_responses = re.findall(r'<grammar>(.*?)</grammar>', llm_response)
+
+    logger.info(f"llm response: {llm_role_responses}")
     
+    if not llm_role_responses:
+        # Handle the case where there is nothing between the <role> tags
+        llm_role_responses = ['No response from the llm']
+        logger.warning("No message found in LLM response")
+
+    if not llm_grammar_responses:
+        # Handle the case where there is nothing between the <role> tags
+        llm_grammar_response = ['No grammar response from the llm']
+        logger.warning("No grammar message found in LLM response")
+
+    role_response = ''.join(llm_role_responses)
+
     # Guardar respuesta en la conversación
-    conversation.append({'role': 'assistant', 'content': llm_response})
+    conversation.append({'role': 'assistant', 'content': role_response})
     save_conversation(conversation)
 
     # Generar el archivo de TTS con la respuesta
-    tts_audio_file = generate_speech(llm_response)
-    return llm_response, tts_audio_file
+    tts_audio_file = generate_speech(role_response)
+    return role_response, llm_grammar_responses[0], tts_audio_file

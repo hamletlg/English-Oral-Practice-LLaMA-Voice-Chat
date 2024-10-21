@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+  <div class=" row h-100">
+    <!-- Left panel for roleplay name -->
+    <div class="col-md-3 d-flex flex-column justify-content-between"> 
+      <img src="{{ url_for('static', filename='images/' ~ image) }}" alt="Your Image" class="img-fluid mb-3">     
+      {{ presentation | safe }}
+    </div>
+
+    <!-- Main chat interface panel -->
+    <div class="col-md-6 border p-4 h-80 overflow-y-auto d-flex flex-column">
+      <div id="chat-interface" class="border p-4 h-100 overflow-y-auto d-flex flex-column">
+        <div id="messages" class="w-100" style="height: 70vh; overflow-y: auto;">
+        </div>
+      </div>
+      <div id="input-container" class="mt-3 d-flex justify-content-between">
+        <button id="send-message" class="btn btn-primary w-md-auto">Record</button>
+        <button id="new-conversation" class="btn btn-secondary w-md-auto">New Conversation</button>
+      </div>
+    </div>
+
+    <!-- Right panel for grammar mistakes -->
+    <div class="col-md-3 border d-flex flex-column justify-content-between">
+      <h2 class="text-center mb-3">Grammar Mistakes</h2>
+      <div id="grammar-review" class="overflow-y-auto" style="height: 75vh;">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

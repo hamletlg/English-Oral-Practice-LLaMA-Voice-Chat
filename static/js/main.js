@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
             // Show LLM response and play the TTS audio
             displayResponse(data.response);
+            displayGrammar(data.grammar);
             playAudio(data.audio);
     
         } catch (error) {
@@ -166,44 +167,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const messagesDiv = document.getElementById('messages');
         const messageElement = document.createElement('div');
         messageElement.innerHTML = marked.parse(responseText);
-        messageElement.style.textAlign = 'left'; // Align to the right for assistant's responses
+        messageElement.style.textAlign = 'left';
         messagesDiv.appendChild(messageElement);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom of the chat interface
-    }
-    
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; 
+    }    
 
-    // Function to show notifications
-    /* function showNotification(message, type = 'success') {
-        const notification = document.getElementById('notification');
-        const overlay = document.getElementById('flash-overlay');
-    
-        // Set the notification message and type
-        notification.textContent = message;
-        notification.className = `flash ${type}`;
-    
-        // Show the notification and overlay by setting display and triggering opacity transition
-        overlay.style.display = 'block';
-        notification.style.display = 'block';
-        
-        // Trigger the fade-in by setting opacity to 1
-        setTimeout(() => {
-            overlay.style.opacity = '1';
-            notification.style.opacity = '1';
-        }, 10); // Slight delay to ensure CSS transition triggers
-    
-        // Automatically hide the notification and overlay after 5 seconds
-        setTimeout(() => {
-            // Fade out by setting opacity to 0
-            overlay.style.opacity = '0';
-            notification.style.opacity = '0';
-            
-            // After the fade-out transition is done (0.5s), hide the elements completely
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                notification.style.display = 'none';
-            }, 500); // Match this with the CSS transition duration (0.5s)
-        }, 2000); // Show for 5 seconds
-    }*/
+    function displayGrammar(responseText) {
+        console.log(responseText);
+        const messagesDiv = document.getElementById('grammar-review');
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = responseText;
+        messageElement.style.textAlign = 'left';
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; 
+    }  
+
 
     document.getElementById('new-conversation').addEventListener('click', async () => {
         resetRecordingState();
