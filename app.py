@@ -11,7 +11,7 @@ from llm.llm_handler import get_llm_response, process_conversation
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
-app.secret_key = 'kjnñdkfpieauhuegr8y34uhpjw4'
+app.secret_key = Config.SECRET_KEY
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

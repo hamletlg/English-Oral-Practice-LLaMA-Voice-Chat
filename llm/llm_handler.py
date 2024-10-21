@@ -19,8 +19,7 @@ def allowed_file(filename):
 
 
 def process_conversation(audio_file):
-    # Procesar el archivo de audio usando Whisper o algún otro servicio
-    
+    # Process audio file    
     if audio_file and allowed_file(audio_file.filename):
         filename = secure_filename(audio_file.filename)
         filepath = os.path.join(Config.UPLOAD_FOLDER, filename)
@@ -88,10 +87,10 @@ def get_llm_response(user_input, system_role):
 
     role_response = ''.join(llm_role_responses)
 
-    # Guardar respuesta en la conversación
+    # Store answer
     conversation.append({'role': 'assistant', 'content': role_response})
     save_conversation(conversation)
 
-    # Generar el archivo de TTS con la respuesta
+    # Generate tts file
     tts_audio_file = generate_speech(role_response)
     return role_response, llm_grammar_responses[0], tts_audio_file

@@ -4,6 +4,8 @@
 [![GitHub License](https://img.shields.io/github/license/hamletlg/english-oral-practice)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/hamletlg/english-oral-practice?style=social)](https://github.com/yourusername/english-oral-practice)
 
+Alpha: 0.2
+
 A local Flask application designed to help users practice and improve their English oral language skills through conversational roleplays with an AI assistant. The app utilizes cutting-edge models like Whisper, Piper, and LLaMA for speech recognition, text-to-speech, and interactive conversations.
 
 ## Table of Contents
@@ -31,7 +33,7 @@ A local Flask application designed to help users practice and improve their Engl
 - Virtualenv
 - A modern web browser (Chrome, Firefox, Safari, etc.)
 - Piper
-- WhisperCpp executable
+- whisper.cpp executable
 - Local LLM with OpenAi compatible endpoint
 - ffmpeg
 
@@ -93,8 +95,7 @@ Contributions are welcome! If you encounter any issues, have suggestions, or wan
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
 3. Make changes and write tests if applicable.
-4. Ensure that the test suite passes and the linter has no errors.
-5. Submit a pull request describing your changes.
+4. Submit a pull request describing your changes.
 
 ## License
 
