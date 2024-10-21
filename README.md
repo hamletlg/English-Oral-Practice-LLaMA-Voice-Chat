@@ -1,8 +1,6 @@
 # English Oral Practice: LLaMA Voice Chat
 
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue)](https://www.python.org/)
-[![GitHub License](https://img.shields.io/github/license/hamletlg/english-oral-practice)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/hamletlg/english-oral-practice?style=social)](https://github.com/yourusername/english-oral-practice)
 
 Alpha: 0.2
 
@@ -34,7 +32,7 @@ A local Flask application designed to help users practice and improve their Engl
 - A modern web browser (Chrome, Firefox, Safari, etc.)
 - Piper
 - whisper.cpp executable
-- Local LLM with OpenAi compatible endpoint
+- Local LLM with OpenAI compatible endpoint
 - ffmpeg
 
 ## Installation
